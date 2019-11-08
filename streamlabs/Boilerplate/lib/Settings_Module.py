@@ -1,6 +1,7 @@
 import os
 import codecs
 import json
+import build_json
 
 class MySettings(object):
 	def __init__(self, settingsfile=None):
@@ -8,9 +9,9 @@ class MySettings(object):
 			with codecs.open(settingsfile, encoding="utf-8-sig", mode="r") as f:
 				self.__dict__ = json.load(f, encoding="utf-8")
 		except:
-			self.Command = "!ping"
-			self.Response = "pong! ^_^"
-			self.Cooldown = 10
+			self.Command = "!cw"
+			self.Response = build_json.generate_warning()
+			self.Cooldown = 0
 			self.Permission = "everyone"
 			self.Info = ""
 
