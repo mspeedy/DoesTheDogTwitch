@@ -41,11 +41,10 @@ def yes_or_no_formatter(topic):
         action = "No"
     return "{topic} : {action} (Yes: {yes_votes} | No : {no_votes})\n".format(topic=topic['topic'], yes_votes=topic['yes_votes'], no_votes=topic['no_votes'], action=action), action, topic['topic_short']
 
-def main():
-    movie = raw_input("Enter a movie title: ")
-    movie1 = dict(title=movie)
-
-    to_write = []
+def generate_warning(movie):
+    # movie1 = dict(title=movie)
+    #
+    # to_write = []
     if use_dtdd_web_api:
         print("⏩ Getting data from faster web API")
     else:
@@ -69,35 +68,11 @@ def main():
 
     topic_list = topic_list[:len(topic_list) - 1]
 
-    print topic_list
+    return topic_list
 
-    #
-    # if use_dtdd_web_api:
-    #     resp = requests.get("{}/media/{}".format(dtdd_web_api_address, movie))
-    #     if resp.status_code == 200:
-    #         movie1['dtdd'] = json.loads(resp.text)
-    #     else:
-    #         movie1['dtdd'] = None
-    # else:
-    #     movie1['dtdd'] = get_info_for_movie(movie1['title'])
-    # movie1['statuses'] = []
-    #
-    # # we preformat all the strings for later, so we can quickly retrieve them (meaning the writer has little logic attached to DTDD)
-    #
-    # if movie1['dtdd'] != None:
-    #     for raw_status in movie1['dtdd']:
-    #         yes_or_no = yes_or_no_formatter(raw_status)
-    #         if (not only_show_yes) or (yes_or_no[1] == "Yes"):
-    #             movie1['statuses'].append(yes_or_no)
-    # to_write.append(movie1)
+def main():
 
-    # all we need to do now is chuck it in a big ol' json file
-
-    print("✏ Writing to JSON file")
-    with open("movies.json", "w") as f:
-        f.write(json.dumps(to_write, indent=4))
-    print("✅ Done!")
-
+    pass
 
 if __name__ == "__main__":
     main()
