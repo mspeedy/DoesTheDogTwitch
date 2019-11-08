@@ -3,4 +3,4 @@ __pycache__/
 config.py
 movies.json
 venv/
-venv2/
+.idea/
