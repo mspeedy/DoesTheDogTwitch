@@ -17,10 +17,10 @@ from streamlabs.Boilerplate.lib.Settings_Module import MySettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------
-ScriptName = "Template Script"
-Website = "https://www.streamlabs.com"
-Description = "!test will post a message in chat"
-Creator = "AnkhHeart"
+ScriptName = "Content Warning"
+Website = "https://www.twitch.tv/notsospeedruns"
+Description = "!cw will post a content warning in chat"
+Creator = "NotSoSpeedRuns"
 Version = "1.0.0.0"
 
 #---------------------------
