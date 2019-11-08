@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 # This should be ran as a service if you want to make use of the web API tech without requesting the main one
 from flask_api import FlaskAPI
 from apis.doesthedogdie import get_info_for_movie
@@ -22,6 +23,7 @@ to_replace = [
     ("abuse alcohol", "alcohol abuse")
 ]
 
+# returns a shortened of string topic description
 def shorten(topic):
     for filter in to_strip:
         topic = re.sub(filter, '', topic)
@@ -37,7 +39,7 @@ def dtdd_index():
 @app.route("/media/<key>", methods=['GET'])
 def movie_details(key):
     key = str(key)
-    to_return = get_info_for_movie(key)
+    to_return = get_info_for_movie(key) # list of dictionary topics for the movie
     
     if to_return == None:
         return {"error": "cannot find movie"}, 404

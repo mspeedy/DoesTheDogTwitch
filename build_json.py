@@ -1,10 +1,9 @@
+# -*- coding: utf8 -*-
 from apis.doesthedogdie import get_info_for_movie
-from apis.plex import get_movies_and_format
 import json
 import requests
-import urllib.parse
-
-from tqdm import tqdm
+import sys
+from dtdd_api import shorten
 try:
     from config import only_show_yes
 except:
@@ -43,8 +42,8 @@ def yes_or_no_formatter(topic):
     return "{topic} : {action} (Yes: {yes_votes} | No : {no_votes})\n".format(topic=topic['topic'], yes_votes=topic['yes_votes'], no_votes=topic['no_votes'], action=action), action, topic['topic_short']
 
 def main():
-    print("⬇ Getting movies from Plex")
-    movies = get_movies_and_format()
+    movie = raw_input("Enter a movie title: ")
+    movie1 = dict(title=movie)
 
     to_write = []
     if use_dtdd_web_api:
@@ -53,25 +52,44 @@ def main():
         print("🐶 Getting data from DoesTheDogDie.com")
         if not use_memcache:
             print("⚠ You aren't using a memcache or an external API for DTDD - this will take a while")
-    for movie in tqdm(movies):
-        if use_dtdd_web_api:
-            resp = requests.get("{}/media/{}".format(dtdd_web_api_address, movie['title']))
-            if resp.status_code == 200:
-                movie['dtdd'] = json.loads(resp.text)
-            else:
-                movie['dtdd'] = None
-        else:
-            movie['dtdd'] = get_info_for_movie(movie['title'])
-        movie['statuses'] = []
 
-        # we preformat all the strings for later, so we can quickly retrieve them (meaning the writer has little logic attached to DTDD)
+    topics = get_info_for_movie(movie)
 
-        if movie['dtdd'] != None:
-            for raw_status in movie['dtdd']:
-                yes_or_no = yes_or_no_formatter(raw_status)
-                if (not only_show_yes) or (yes_or_no[1] == "Yes"):
-                    movie['statuses'].append(yes_or_no)
-        to_write.append(movie)
+    if topics == None:
+        return {"error": "cannot find movie"}, 404
+    for status in topics:
+        if status.get('topic_short', None) is None:
+            status['topic_short'] = shorten(status['topic'])
+
+    topic_list = 'This game may contain: '
+
+    for topic in topics:
+        if topic['yes_votes'] > topic['no_votes']:
+            topic_list = topic_list + topic['topic_short'] + ', '
+
+    topic_list = topic_list[:len(topic_list) - 1]
+
+    print topic_list
+
+    #
+    # if use_dtdd_web_api:
+    #     resp = requests.get("{}/media/{}".format(dtdd_web_api_address, movie))
+    #     if resp.status_code == 200:
+    #         movie1['dtdd'] = json.loads(resp.text)
+    #     else:
+    #         movie1['dtdd'] = None
+    # else:
+    #     movie1['dtdd'] = get_info_for_movie(movie1['title'])
+    # movie1['statuses'] = []
+    #
+    # # we preformat all the strings for later, so we can quickly retrieve them (meaning the writer has little logic attached to DTDD)
+    #
+    # if movie1['dtdd'] != None:
+    #     for raw_status in movie1['dtdd']:
+    #         yes_or_no = yes_or_no_formatter(raw_status)
+    #         if (not only_show_yes) or (yes_or_no[1] == "Yes"):
+    #             movie1['statuses'].append(yes_or_no)
+    # to_write.append(movie1)
 
     # all we need to do now is chuck it in a big ol' json file
 

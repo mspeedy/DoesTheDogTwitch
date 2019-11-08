@@ -1,5 +1,6 @@
+# -*- coding: utf8 -*-
 from bs4 import BeautifulSoup
-import urllib.parse
+from urllib import pathname2url
 import requests
 import time
 import json
@@ -27,7 +28,7 @@ if not (dtdd_api_enabled):
     print("⚠ DTDD's api is recommended for performance reasons")
 try:
     from config import use_memcache
-    if  use_memcache:
+    if use_memcache:
         try:
             from config import memcache_address, memcache_port, invalidation_time
         except ImportError:
@@ -46,6 +47,8 @@ else:
 
 base_string = "https://www.doesthedogdie.com/{media_id}"
 
+# Uses webscraper to return list of all topics for a media item
+# Only called if dtdd_api_enabled is set to false in config
 def get_topics(media_id):
     resp = requests.get(base_string.format(media_id=media_id))
     soup = BeautifulSoup(resp.text, 'lxml')
@@ -55,11 +58,15 @@ def get_topics(media_id):
         print("❌ Could not find topics for {}".format(media_id))
         return []
 
+# Uses DTDD API to return list of all topics for a media item
+# Each topic is a JSON item with a name, description, and yes and no votes
+# Only called if dtdd_api_enabled is set to true in config
 def get_topics_api(media_id):
     resp = requests.get(base_string.format(media_id=media_id), headers=api_headers)
     resp = json.loads(resp.text)
     return resp.get('topicItemStats')
 
+# Returns a list of dictionaries containing info for each topic for a media item
 def get_info(media_id):
     to_return = []
     if dtdd_api_enabled:
@@ -87,10 +94,12 @@ def get_info(media_id):
             no_votes = int(yesNo.select('.no')[0].select('.count')[0].text)
             to_return.append(dict(topic=name, yes_votes=yes_votes, no_votes=no_votes))
     return to_return
-    
+
+# Takes in search string and returns the media id of first result from dtdd api
+# in format "media/[mediaid]"
 def search(search_string):
     search_string = search_string.lower()
-    search_string = urllib.parse.quote_plus(search_string)
+    search_string = pathname2url(search_string)
     url = 'https://www.doesthedogdie.com/search?q={}'.format(search_string)
     if dtdd_api_enabled:
         search_request = requests.get(url, headers=api_headers)
@@ -111,10 +120,18 @@ def search(search_string):
             counter += 1
     
     return None
-    
+
+# removes all topics in list of topics where there are more no votes than yes votes
+def filter_yes_and_no(topics):
+    for topic in topics:
+        if topic.get('yes_votes') <= topic.get('no_votes'):
+            topics.remove(topic)
+    return topics
+
+# Takes string movie name and returns list of dictionaries of all topics for that movie with more yes votes than no
 def get_info_for_movie(movie_name, use_cache=True):
     movie_name = movie_name.lower()
-    movie_name = urllib.parse.quote_plus(movie_name)
+    movie_name = pathname2url(movie_name)
     if use_cache and use_memcache: # use_memcache is the global config, use_cache is if we don't want to hit the cache on this occasion
         data = client.get(movie_name)
         invalid = False
@@ -140,4 +157,6 @@ def get_info_for_movie(movie_name, use_cache=True):
                 client.set(movie_name, json.dumps(dict(data=data, time_retrieved=int(time.time()))))
         else:
             data = None
+    if data is not None:
+        data = filter_yes_and_no(data)
     return data
