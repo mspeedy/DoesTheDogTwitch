@@ -4,7 +4,8 @@
 import os
 import sys
 import json
-import build_json
+from src import build_json
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib")) #point at lib folder for classes / references
 
 import clr
@@ -12,7 +13,7 @@ clr.AddReference("IronPython.SQLite.dll")
 clr.AddReference("IronPython.Modules.dll")
 
 #   Import your Settings class
-from Settings_Module import MySettings
+from streamlabs.Boilerplate.lib.Settings_Module import MySettings
 #---------------------------
 #   [Required] Script Information
 #---------------------------

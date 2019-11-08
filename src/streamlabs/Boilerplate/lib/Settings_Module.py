@@ -1,7 +1,7 @@
-import os
 import codecs
 import json
-import build_json
+from src import build_json
+
 
 class MySettings(object):
 	def __init__(self, settingsfile=None):

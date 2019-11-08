@@ -1,16 +1,14 @@
 # -*- coding: utf8 -*-
-import requests
-import bs4
 
 #from config import token, url
 
 try:
-    from config import use_short_names
+    from src.config import use_short_names
 except:
     print("⚠ Please set use_short_names in your config.py")
     use_short_names = False
 try:
-    from config import only_show_yes
+    from src.config import only_show_yes
 except:
     print("⚠ Please set only_show_yes in your config.py")
     only_show_yes = False

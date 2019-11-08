@@ -7,9 +7,9 @@ import json
 
 
 try:
-    from config import dtdd_api_enabled
+    from src.config import dtdd_api_enabled
     try:
-        from config import dtdd_api_key
+        from src.config import dtdd_api_key
         api_headers = {'Accept' :'application/json', 'X-API-KEY': dtdd_api_key}
         check_request = requests.get('https://www.doesthedogdie.com/search?q=old%20yeller', headers=api_headers)
         try:
@@ -27,10 +27,10 @@ except ImportError:
 if not (dtdd_api_enabled):
     print("⚠ DTDD's api is recommended for performance reasons")
 try:
-    from config import use_memcache
+    from src.config import use_memcache
     if use_memcache:
         try:
-            from config import memcache_address, memcache_port, invalidation_time
+            from src.config import memcache_address, memcache_port, invalidation_time
         except ImportError:
             print("⚠ Please set memcache_address, memcache_port and invalidation_time in config.py")
             use_memcache = False
