@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6806f582-d2d4-4177-ae8c-b9596ab93086" name="Default Changelist" comment="Folder reorganization">
-      <change beforePath="$PROJECT_DIR$/.idea/DoesTheDogTwitch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DoesTheDogTwitch.iml" afterDir="false" />
+    <list default="true" id="6806f582-d2d4-4177-ae8c-b9596ab93086" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ContentWarning_StreamlabsSystem.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/run.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/run.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Boilerplate/Overlays/API_Key.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Boilerplate/Overlays/TemplateOverlay.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Boilerplate/UI_Config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Boilerplate/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Boilerplate/lib/Settings_Module.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Boilerplate/lib/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Wiki/Images/Folder_Structure_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/Wiki/Images/Folder_Structure_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/streamlabs/__init__.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -108,8 +122,32 @@
       <option name="project" value="LOCAL" />
       <updated>1573251768364</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Folder reorganization">
+      <created>1573251891691</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1573251891691</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Folder reorganization">
+      <created>1573253209527</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1573253209527</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Deleted Streamlabs and other leftover plex files">
+      <created>1573254528994</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1573254528994</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -131,6 +169,7 @@
     <MESSAGE value="Small updates" />
     <MESSAGE value="Added bot functionality - first test" />
     <MESSAGE value="Folder reorganization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Folder reorganization" />
+    <MESSAGE value="Deleted Streamlabs and other leftover plex files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deleted Streamlabs and other leftover plex files" />
   </component>
 </project>
