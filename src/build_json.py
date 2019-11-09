@@ -3,6 +3,7 @@ from apis.doesthedogdie import get_info_for_movie
 import json
 import requests
 import sys
+
 from dtdd_api import shorten
 try:
     from config import only_show_yes

@@ -1,9 +1,9 @@
 import datetime
 from typing import *
 
-from .abcs import Messageable
-from .http import HTTPSession
-from .websocket import WebsocketConnection
+from TwitchIO.twitchio.abcs import Messageable
+from TwitchIO.twitchio.http import HTTPSession
+from TwitchIO.twitchio.websocket import WebsocketConnection
 from twitchio.ext.commands.core import Command
 
 class Message:
