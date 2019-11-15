@@ -5,3 +5,7 @@ requests
 Flask-API
 pymemcache
 parse
+aiohttp>=3.3
+async_timeout>=3.0.0
+websockets>=6.0
+twitchio

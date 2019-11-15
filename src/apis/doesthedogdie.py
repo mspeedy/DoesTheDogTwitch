@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from bs4 import BeautifulSoup
-from urllib import pathname2url
+from urllib.parse import quote_plus
 import requests
 import time
 import json
@@ -99,7 +99,7 @@ def get_info(media_id):
 # in format "media/[mediaid]"
 def search(search_string):
     search_string = search_string.lower()
-    search_string = pathname2url(search_string)
+    search_string = quote_plus(search_string)
     url = 'https://www.doesthedogdie.com/search?q={}'.format(search_string)
     if dtdd_api_enabled:
         search_request = requests.get(url, headers=api_headers)
@@ -131,7 +131,7 @@ def filter_yes_and_no(topics):
 # Takes string movie name and returns list of dictionaries of all topics for that movie with more yes votes than no
 def get_info_for_movie(movie_name, use_cache=True):
     movie_name = movie_name.lower()
-    movie_name = pathname2url(movie_name)
+    movie_name = quote_plus(movie_name)
     if use_cache and use_memcache: # use_memcache is the global config, use_cache is if we don't want to hit the cache on this occasion
         data = client.get(movie_name)
         invalid = False

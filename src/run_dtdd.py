@@ -5,6 +5,8 @@ import requests
 import sys
 
 from dtdd_api import shorten
+from twitchio.ext import commands
+import config
 try:
     from config import only_show_yes
 except:
@@ -71,8 +73,30 @@ def generate_warning(movie):
 
     return topic_list
 
-def main():
 
+
+class Bot(commands.Bot):
+
+    def __init__(self):
+        super().__init__(irc_token=config.oauth_token, client_id='NotSoSpeedRuns', nick='NotSoSpeedBot', prefix='!',
+                         initial_channels=['NotSoSpeedRuns'])
+
+    # Events don't need decorators when subclassed
+    async def event_ready(self):
+        print(f'Ready | {self.nick}')
+
+    async def event_message(self, message):
+        print(message.content)
+        await self.handle_commands(message)
+
+    # Commands use a decorator...
+    @commands.command(name='test')
+    async def my_command(self, ctx):
+        await ctx.send(f'Hello {ctx.author.name}!')
+
+def main():
+    bot = Bot()
+    bot.run()
     pass
 
 if __name__ == "__main__":
